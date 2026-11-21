@@ -8,77 +8,77 @@
 </p>
 
 <p align="center">
-  <b>将 Google 桌面端强制跨设备扫码验证（MO-SMS / GMS Constellation）一键降级回传统的「输入手机号接收 6 位短信验证码」流程。</b><br/>
-  Switch Google's mandatory cross-device QR verification back to standard 6-digit SMS / Voice verification on desktop browsers.
+  <b>Chuyển quy trình xác minh quét mã QR liên thiết bị bắt buộc trên máy tính của Google (MO-SMS / GMS Constellation) về lại quy trình «nhập số điện thoại nhận mã xác minh SMS 6 chữ số» truyền thống chỉ với một cú nhấp chuột.</b><br/>
+  Chuyển đổi xác minh QR liên thiết bị bắt buộc của Google về lại xác minh SMS / Thoại 6 chữ số tiêu chuẩn trên trình duyệt máy tính.
 </p>
 
 ---
 
-## 📦 一、安装教程 (Installation)
+## 📦 1. Hướng dẫn cài đặt
 
-### 方式 1：直接下载 Release 压缩包（推荐新手）
-1. 前往本仓库的 **[Releases 页面](https://github.com/havenicec/google-qr-sms-helper/releases/latest)**，下载最新的 `google-qr-sms-helper-v1.1.0.zip` 并解压到本地文件夹。
-2. 打开 Chrome / Edge / Brave 浏览器，在地址栏输入 `chrome://extensions/` 并回车。
-3. 打开页面右上角的 **「开发者模式 (Developer mode)」** 开关。
-4. 点击左上角的 **「加载已解压的扩展程序 (Load unpacked)」**，选中刚才解压出来的文件夹即可完成安装。
+### Cách 1: Tải trực tiếp gói nén Release (Khuyên dùng cho người mới)
+1. Truy cập **[trang Releases](https://github.com/havenicec/google-qr-sms-helper/releases/latest)** của kho lưu trữ này, tải về tệp `google-qr-sms-helper-v1.1.0.zip` mới nhất và giải nén vào thư mục trên máy.
+2. Mở trình duyệt Chrome / Edge / Brave, nhập `chrome://extensions/` vào thanh địa chỉ và nhấn Enter.
+3. Bật công tắc **«Chế độ dành cho nhà phát triển (Developer mode)»** ở góc trên bên phải trang.
+4. Nhấp vào nút **«Tải tiện ích đã giải nén (Load unpacked)»** ở góc trên bên trái, sau đó chọn thư mục vừa giải nén để hoàn tất cài đặt.
 
-### 方式 2：通过 Git 克隆安装
+### Cách 2: Cài đặt qua Git clone
 ```bash
 git clone https://github.com/havenicec/google-qr-sms-helper.git
 ```
-然后在 `chrome://extensions/` 中开启「开发者模式」，点击「加载已解压的扩展程序」并选择 `google-qr-sms-helper` 目录。
+Sau đó bật «Chế độ dành cho nhà phát triển» trong `chrome://extensions/`, nhấp «Tải tiện ích đã giải nén» và chọn thư mục `google-qr-sms-helper`.
 
 ---
 
-## 🚀 二、保姆级图文使用教程 (Step-by-Step Usage Guide)
+## 🚀 2. Hướng dẫn sử dụng chi tiết từng bước
 
 > [!IMPORTANT]
-> **核心前提（必看）**：**不要**直接从第三方客户端（如 Antigravity / Gemini Code Assist 授权页）弹出的二维码页面降级（因为其 `continue` 参数包含多层嵌套重定向，会被 Google 重新拦截回二维码）。  
-> **必须先打开 Google Cloud Console 通过 Cloud Shell 唤出原生的 `Verify` 窗口**！在这里过完一次短信验证后，你的 Google 账号权限将全局解锁，再回 Antigravity 等工具登录即可直接丝滑通过。
+> **Điều kiện tiên quyết (Bắt buộc đọc)**: **Không** thực hiện hạ cấp trực tiếp từ trang mã QR bật lên từ ứng dụng bên thứ ba (như trang ủy quyền Antigravity / Gemini Code Assist), vì tham số `continue` của chúng chứa nhiều lớp chuyển hướng lồng nhau và sẽ bị Google chặn quay lại trang mã QR.  
+> **Bắt buộc phải mở Google Cloud Console trước và gọi cửa sổ `Verify` gốc thông qua Cloud Shell**! Sau khi hoàn tất xác minh SMS một lần tại đây, quyền tài khoản Google của bạn sẽ được mở khóa trên toàn hệ thống; lúc này quay lại đăng nhập vào các công cụ như Antigravity sẽ thông qua mượt mà ngay lập tức.
 
-### 第 1 步：打开 Google Cloud Console 并唤起 Cloud Shell 验证
-1. 在浏览器中登录你需要验证的 Google 账号，访问 **[https://console.cloud.google.com/](https://console.cloud.google.com/)**。
-2. 如下图所示，点击页面右上角导航栏的 **「激活 Cloud Shell」终端图标 `[>_]`**（或者直接点击页面右下角插件悬浮窗里的 **`1. 自动点击 Cloud Shell 终端图标`** 按钮）。
-3. 在底部弹出的 `Verify your account` 窗口中，点击蓝色的 **`Verify`** 按钮：
+### Bước 1: Mở Google Cloud Console và gọi xác minh Cloud Shell
+1. Đăng nhập tài khoản Google cần xác minh trên trình duyệt và truy cập **[https://console.cloud.google.com/](https://console.cloud.google.com/)**.
+2. Như minh họa bên dưới, nhấp vào biểu tượng terminal **«Kích hoạt Cloud Shell» `[>_]`** trên thanh điều hướng góc trên bên phải (hoặc nhấp trực tiếp nút **`1. Tự động nhấp biểu tượng terminal Cloud Shell`** trong cửa sổ nổi của tiện ích ở góc dưới bên phải trang).
+3. Trong cửa sổ `Verify your account` bật lên ở phía dưới, nhấp vào nút **`Verify`** màu xanh lam:
 
-![Cloud Shell Verify 入口示意](./assets/cloud-shell-verify.png)
-
----
-
-### 第 2 步：在二维码页面点击「一键降级到短信选择框」
-1. 点击 `Verify` 后，会弹出 Google 的二维码验证页面（`/v3/signin/challenge/iap/qrcode`）。
-2. 等待二维码图片加载出来后，点击页面右下角插件悬浮面板上的 **「⚡ 一键降级到短信选择框」** 按钮：
-   - 插件会自动调用浏览器原生 `BarcodeDetector` 识别页面上的二维码；
-   - 自动在后台向 Google 发送 `MypxBd` 与 `YDtwf ([null, uuid, dsh, 7, null, tl, false])` 数据包，拿到 `[3, null, 4]`（非 Android 设备回退短信验证状态）；
-   - 自动将当前标签页的请求头与环境伪装为 **`iPad Mini`**（无需手动按 F12 切换设备），并重定向到 `uplevelingstep/selection?...&idv_xdevice=1`。
+![Minh họa lối vào Cloud Shell Verify](./assets/cloud-shell-verify.png)
 
 ---
 
-### 第 3 步：选择「短信 (Text message)」并输入手机号接码
-1. 页面会自动跳转进带有单选框的 **验证方式选择页 (`/uplevelingstep/selection`)**：
-   - 勾选 **Text message (SMS) / 短信**（或语音通话），点击下一步。
-2. 在手机号输入框中填入你的接码手机号（支持任意国家/地区的接码平台号码或实体卡号），点击发送验证码。
-3. 收到 `G-xxxxxx` 的 6 位数字验证码后填入并点击 **Next**，即可完成账号验证！
-4. 验证通过后，回到 Cloud Shell 或 Antigravity / Gemini CLI 刷新即可正常使用。
+### Bước 2: Nhấp «Hạ cấp nhanh về hộp chọn SMS» trên trang mã QR
+1. Sau khi nhấp `Verify`, trang xác minh mã QR của Google (`/v3/signin/challenge/iap/qrcode`) sẽ xuất hiện.
+2. Đợi hình ảnh mã QR tải xong, nhấp vào nút **«⚡ Hạ cấp nhanh về hộp chọn SMS»** trên bảng điều khiển nổi của tiện ích ở góc dưới bên phải trang:
+   - Tiện ích sẽ tự động gọi `BarcodeDetector` gốc của trình duyệt để nhận diện mã QR trên trang;
+   - Tự động gửi các gói dữ liệu `MypxBd` và `YDtwf ([null, uuid, dsh, 7, null, tl, false])` tới Google ở chế độ nền, nhận về `[3, null, 4]` (trạng thái quay về xác minh SMS cho thiết bị không phải Android);
+   - Tự động giả lập tiêu đề yêu cầu và môi trường của tab hiện tại thành **`iPad Mini`** (không cần nhấn F12 chuyển thiết bị thủ công), và chuyển hướng tới `uplevelingstep/selection?...&idv_xdevice=1`.
 
 ---
 
-## ❓ 三、常见问题与避坑指南 (FAQ & Troubleshooting)
-
-### Q1: 为什么我从别的链接点进二维码页，点降级后又跳回了二维码？
-- **原因**：只有从 `https://console.cloud.google.com/` 点击右上角 **Cloud Shell `[>_]` -> `Verify`** 唤出的二维码页，其 `continue` 参数才是纯净的 `https://accounts.google.com/uplevelingstep/selection?TL=...&authuser=0&flowName=GlifWebSignIn&sarp=1&scc=1`。请务必按「第 1 步」从 Cloud Shell 入口进入。
-
-### Q2: 为什么插件默认伪装成 `iPad Mini` 而不是 `iPad Pro` 或桌面浏览器？
-- **原因**：Google 的 `uplevelingstep/selection` 接口会校验 `User-Agent`：
-  - 桌面端（Windows / macOS）以及 Chrome F12 中的 `iPad Pro 13` 发送的都是 `Macintosh; Intel Mac OS X` 桌面级 UA，Google 检测到桌面环境会无视 `idv_xdevice=1` 强行跳回二维码。
-  - 而 `iPad Mini` 发送的是纯移动端 `iPad; CPU OS 16_6 like Mac OS X ... Mobile/15E148` 请求头，且在提交 6 位验证码的 `/_/IdvUplevelingUi/data/batchexecute` 接口上必须保持前后完全一致的 `iPad Mini` 请求头（已在 v1.1.0 中通过 `declarativeNetRequest` 全路径自动覆盖，无需手动开 F12）。
-
-### Q3: 点击「一键降级」提示“未能在当前页面识别到二维码”怎么办？
-- 请确认使用的是 **Chrome / Edge 88+** 浏览器（支持原生 `BarcodeDetector` 接口），并等待页面上的黑色二维码图案完全显示后再点击按钮。
+### Bước 3: Chọn «Tin nhắn văn bản (Text message)» và nhập số điện thoại nhận mã
+1. Trang sẽ tự động chuyển vào **trang chọn phương thức xác minh (`/uplevelingstep/selection`)** có các nút chọn:
+   - Chọn **Text message (SMS) / Tin nhắn văn bản** (hoặc cuộc gọi thoại), nhấn Tiếp theo.
+2. Nhập số điện thoại nhận mã của bạn vào ô nhập số điện thoại (hỗ trợ số từ các nền tảng nhận mã hoặc SIM vật lý ở bất kỳ quốc gia/khu vực nào), nhấn gửi mã xác minh.
+3. Sau khi nhận được mã xác minh 6 chữ số dạng `G-xxxxxx`, điền vào và nhấn **Next** để hoàn tất xác minh tài khoản!
+4. Sau khi xác minh thành công, quay lại Cloud Shell hoặc Antigravity / Gemini CLI và làm mới trang để sử dụng bình thường.
 
 ---
 
-## ✨ 四、技术原理与工作流 (Architecture & Workflow)
+## ❓ 3. Câu hỏi thường gặp & Lưu ý tránh lỗi
+
+### Q1: Tại sao khi tôi vào trang mã QR từ liên kết khác và nhấn hạ cấp lại bị chuyển về trang mã QR?
+- **Nguyên nhân**: Chỉ trang mã QR được gọi từ `https://console.cloud.google.com/` bằng cách nhấp **Cloud Shell `[>_]` -> `Verify`** ở góc trên bên phải mới có tham số `continue` sạch là `https://accounts.google.com/uplevelingstep/selection?TL=...&authuser=0&flowName=GlifWebSignIn&sarp=1&scc=1`. Vui lòng làm đúng theo «Bước 1» để vào từ lối vào Cloud Shell.
+
+### Q2: Tại sao tiện ích mặc định giả lập thành `iPad Mini` mà không phải `iPad Pro` hay trình duyệt máy tính?
+- **Nguyên nhân**: Giao diện `uplevelingstep/selection` của Google sẽ kiểm tra `User-Agent`:
+  - Máy tính (Windows / macOS) cũng như `iPad Pro 13` trong Chrome F12 đều gửi UA cấp máy tính `Macintosh; Intel Mac OS X`; khi phát hiện môi trường máy tính, Google sẽ bỏ qua `idv_xdevice=1` và ép chuyển về mã QR.
+  - Trong khi đó, `iPad Mini` gửi tiêu đề yêu cầu thuần di động `iPad; CPU OS 16_6 like Mac OS X ... Mobile/15E148`, và tại điểm cuối `/_/IdvUplevelingUi/data/batchexecute` khi gửi mã xác minh 6 chữ số bắt buộc phải giữ tiêu đề yêu cầu `iPad Mini` đồng nhất hoàn toàn từ đầu đến cuối (đã được tự động ghi đè toàn đường dẫn qua `declarativeNetRequest` từ phiên bản v1.1.0, không cần mở F12 thủ công).
+
+### Q3: Phải làm sao nếu nhấn «Hạ cấp nhanh» báo lỗi “Không thể nhận diện mã QR trên trang hiện tại”?
+- Vui lòng đảm bảo bạn đang sử dụng trình duyệt **Chrome / Edge 88+** (hỗ trợ giao diện `BarcodeDetector` gốc) và đợi hình mã QR màu đen trên trang hiển thị hoàn toàn trước khi nhấp nút.
+
+---
+
+## ✨ 4. Nguyên lý kỹ thuật & Luồng hoạt động
 
 ```mermaid
 sequenceDiagram
@@ -103,7 +103,7 @@ sequenceDiagram
 
 ---
 
-## 📁 目录结构 (Project Structure)
+## 📁 5. Cấu trúc thư mục
 
 ```text
 google-qr-sms-helper/
@@ -119,6 +119,6 @@ google-qr-sms-helper/
 
 ---
 
-## 📄 License
+## 📄 Giấy phép
 
-Released under the [MIT License](./LICENSE).
+Phát hành theo [Giấy phép MIT](./LICENSE).
